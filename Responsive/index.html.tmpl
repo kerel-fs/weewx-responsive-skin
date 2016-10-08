@@ -150,9 +150,7 @@
                         <td>
                           App. Temperature
                         </td>
-                        <td>
-                          $current.appTemp ($aus.feelslike($current.appTemp.raw, $current.dateTime.raw))
-                        </td>
+                        <td>$current.appTemp</td>
                       </tr>
                       #end if
                       <tr>
@@ -245,11 +243,11 @@
                       #if $day.appTemp.has_data
                       <tr>
                         <td style="border-bottom: none;">High App. Temp.</td>
-                        <td style="border-bottom: none;">$day.appTemp.max ($aus.feelslike($day.appTemp.max.raw, $day.appTemp.maxtime.raw)) at $day.appTemp.maxtime</td>
+                        <td style="border-bottom: none;">$day.appTemp.max at $day.appTemp.maxtime</td>
                       </tr>
                       <tr>
                         <td style="border-top: none;">Low App. Temp.</td>
-                        <td style="border-top: none;">$day.appTemp.min ($aus.feelslike($day.appTemp.min.raw, $day.appTemp.mintime.raw)) at $day.appTemp.mintime</td>
+                        <td style="border-top: none;">$day.appTemp.min at $day.appTemp.mintime</td>
                       </tr>
                       #end if
                       <tr>
@@ -404,53 +402,6 @@
                     <img src="$Extras.satellite_img" class="center-block img-responsive" style="padding-bottom: 5px;" alt="Satellite" />
                   </a>
                   <p class="text-center">Click on the image above for a daily animation</p>
-                </div>
-              </div>
-            </div>
-            #end if
-            ## Comment out below to not include Australian Forecast Panel
-            ## See index-forecast.tmpl for more information
-            ## Forecast Accordian is collapseAccTwoFive
-            #include "index-forecast.tmpl"
-            #if $Extras.has_key('use_warn')
-            <div class="panel panel-primary">
-              <div class="panel-heading">
-                <h4 class="panel-title">
-                  <a class="accordian-toggle collapsed" data-toggle="collapse" data-parent="#accordionTwo" href="#collapseAccTwoSix">
-                    Warnings
-                  </a>
-                </h4>
-              </div>
-              <div class="panel-collapse collapse" id="collapseAccTwoSix">
-                <div class="panel-body">
-                  <h6><small>$aus.NSWWARNINGS.channel.title</small></h6>
-                  <table class="table table-condensed table-responsive">
-                    <tbody>
-                      <tr>
-                        <td class="text-primary">Current Warnings</td>
-                      </tr>
-                      #if $aus.NSWWARNINGS.channel.getNode('item[1]') is None
-                      <tr>
-                        <td>
-                          None
-                        </td>
-                      </tr>
-                      #end if
-                      ## Assume there would be no more than 20 concurrent warnings
-                      ## Not using While in case XML breaks in some way and we get stuck in a loop
-                      #for $wnCount in range(1,21)
-                      #set $wnIndex = '[' + str($wnCount) +']'
-                      #if $aus.NSWWARNINGS.channel.getNode('item'+$wnIndex) is None
-                      #break
-                      #end if
-                      <tr>
-                        <td>
-                          <a href="$aus.NSWWARNINGS.channel.getNode('item'+$wnIndex).link" target="_blank">$aus.NSWWARNINGS.channel.getNode('item'+$wnIndex).title</a>
-                        </td>
-                      </tr>
-                      #end for
-                    </tbody>
-                  </table>
                 </div>
               </div>
             </div>
@@ -625,18 +576,21 @@
         </div>
       </div>
     </div>
+
     ## Include the Google Analytics code if the user has supplied an ID:
     #if $Extras.has_key('googleAnalyticsId')
     <script type="text/javascript">
-      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
     </script>
     <script type="text/javascript">
-      try {
-        var pageTracker = _gat._getTracker("$Extras.googleAnalyticsId");
-        pageTracker._trackPageview();
-      } catch (err) { }
+        try {
+          var pageTracker = _gat._getTracker("$Extras.googleAnalyticsId");
+          pageTracker._trackPageview();
+        } catch (err) { }
     </script>
     #end if
+
   </body>
+
 </html>
