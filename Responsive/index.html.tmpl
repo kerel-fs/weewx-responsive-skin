@@ -11,7 +11,7 @@
     <title>$station.location Weather</title>
     <meta http-equiv="refresh" content="300">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Current weather conditions for $Extras.location_long, including daily graphs and statistics for temperature, wind and rain.">
+    <meta name="description" content="Current weather conditions for $station.location, including daily graphs and statistics for temperature, wind and rain.">
     <meta name="author" content="">
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
     rel="stylesheet">
@@ -447,11 +447,7 @@
                       <tr>
                         <td colspan="2">
                           <h5 class="text-center">
-                            #if $Extras.has_key('location_long')
-                            $Extras.location_long
-                            #else
                             $station.location
-                            #end if
                           </h5>
                         </td>
                       </tr>
